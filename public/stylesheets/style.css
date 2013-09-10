@@ -1,0 +1,80 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+a {
+  color: #00b7ff;
+}
+#nav {
+  background-color: #555;
+  color: #fff;
+}
+#nav ul {
+  width: 900px;
+  padding: 0;
+  margin: 0 auto;
+}
+#nav ul li {
+  display: inline-block;
+}
+#nav ul li a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.5em 2em;
+}
+#nav ul li a:hover {
+  color: #eee;
+}
+#user {
+  float: right;
+  font-size: 10px;
+  padding: 0.5em 2em;
+}
+#container {
+  width: 800px;
+  margin: auto;
+}
+.player {
+  width: 46%;
+  margin: 1%;
+  padding: 1%;
+  float: left;
+}
+.player .inner {
+  border: 1px solid #555;
+}
+.player .inner .title {
+  font-size: 150%;
+  color: #555;
+}
+.player .inner .title .position {
+  padding: 0.5em;
+  background-color: #555;
+  color: #fff;
+}
+.player .inner .title .name {
+  font-size: 75%;
+  padding: 0.5em;
+}
+.player .inner .guess {
+  text-align: center;
+}
+.player .inner .guess input[type='text'] {
+  display: inline-block;
+  margin: 4% 1%;
+  padding: 0;
+  text-align: center;
+  width: 1em;
+  font-size: 400%;
+}
+.player .inner .guess input[type='submit'] {
+  width: 50%;
+  margin: auto;
+  font-size: 100px;
+}
+.player .inner .moves {
+  padding: 1em;
+}

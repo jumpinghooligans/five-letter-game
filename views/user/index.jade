@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+	h1 List of users
+	hr
+	each error in errors
+		.error #{ error }
+	each user in users
+		p: a(href='/users/' + user.username) #{ user.username }
+
+	h2: a(href='users/create') Create User

@@ -1,0 +1,72 @@
+extends ../layout
+
+block content
+	h1 #{ game.name }
+	if errors
+		each error in errors
+			.error #{error}
+	#left.player
+		.inner
+			.title
+				.position home
+				.name #{ helpers.gameUsername(game.player1) }
+
+			if game.stage == "pick"
+				form(method='POST')
+					input(type='hidden', name='action', value='newword')
+					input(type='hidden', name='player', value='player1')
+					input(type='hidden', name='name', value='#{game.name}')
+					if game.player1word.length == 5
+						.word #{ game.player1word }
+					else
+						input(type='text' ,name='word', maxlength='5')
+						input(type='submit')
+			else
+				.guess
+					form(method='POST')
+						input(type='hidden', name='action', value='move')
+						input(type='hidden', name='player', value='player1')
+						input(type='hidden', name='name', value='#{game.name}')
+						input(type='text', maxlength='1', name='0')
+						input(type='text', maxlength='1', name='1')
+						input(type='text', maxlength='1', name='2')
+						input(type='text', maxlength='1', name='3')
+						input(type='text', maxlength='1', name='4')
+						input(type='submit')
+				.moves
+					each move in helpers.getMoves(game.words, 'player1')
+						p #{ move.word } (#{move.letters}) - [#{move.position}]
+	#right.player
+		.inner
+			.title
+				.position away
+				.name #{ helpers.gameUsername(game.player2) }
+
+			if game.stage == "pick"
+				form(method='POST', name='newword')
+					input(Type='hidden', name='action', value='newword')
+					input(type='hidden', name='player', value='player2')
+					input(type='hidden', name='name', value='#{game.name}')
+					if game.player2word.length == 5
+						.word #{ game.player2word }
+					else
+						input(type='text' ,name='word', maxlength='5')
+						input(type='submit')
+			else
+				.guess
+					form(method='POST')
+						input(type='hidden', name='action', value='move')
+						input(type='hidden', name='player', value='player2')
+						input(type='hidden', name='name', value='#{game.name}')
+						input(type='text', maxlength='1', name='0')
+						input(type='text', maxlength='1', name='1')
+						input(type='text', maxlength='1', name='2')
+						input(type='text', maxlength='1', name='3')
+						input(type='text', maxlength='1', name='4')
+						input(type='submit')
+				.moves
+					each move in helpers.getMoves(game.words, 'player2')
+						p #{ move.word } (#{move.letters}) - [#{move.position}]
+	div(style='clear:both')
+	#options
+		h3: a(href="/games/#{game.name}/delete") Delete Game

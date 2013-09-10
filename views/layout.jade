@@ -1,0 +1,23 @@
+doctype 5
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(type='text/javascript', src='http://codeorigin.jquery.com/jquery-2.0.3.js')
+		script(type='text/javascript', src='/javascripts/scripts.js')
+	body
+		#nav
+			if username
+				span#user
+					You are logged in as #{username}
+
+			ul
+				li: a(href='/') Home
+				li: a(href='/users') Users
+				if username
+					li: a(href='/games') Games
+					li: a(href='/users/logout') Logout
+				else
+					li: a(href='/users/login') Login
+		#container
+			block content
