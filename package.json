@@ -2,6 +2,10 @@
   "name": "five-letter-game",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": "0.10.x",
+    "npm":  "1.2.x"
+  },
   "scripts": {
     "start": "node app.js"
   },
@@ -9,7 +13,7 @@
     "express": "3.3.8",
     "jade": "*",
     "stylus": "*",
-    "mongoose": "3.8",
-    "mongodb": "2.*"
+    "mongoose": "*",
+    "mongodb": "*"
   }
 }
