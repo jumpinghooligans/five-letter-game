@@ -11,7 +11,7 @@
 	var dev = require('./routes/dev');
 
 	var devDb = 'mongodb://localhost/flg';
-	var herokuDb = 'mongodb://<user>:<password>@paulo.mongohq.com:10020/app18032920';
+	var herokuDb = 'mongodb://rkortmann:dbpassword123@paulo.mongohq.com:10020/app18032920';
 
 	var http = require('http');
 	var path = require('path');
