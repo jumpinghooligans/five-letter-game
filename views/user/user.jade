@@ -3,6 +3,6 @@ extends ../layout
 block content
 	h1 #{ user.username }
 	p Joined: #{ user.joined.getFullYear() }
-	p: a(href='/users/' + user.username + '/delete') Delete
-
-	a(href='/users') Back to list
+	p
+		a(href='/users', class='btn btn-default') Back to list
+		a(href='/users/' + user.username + '/delete', class='btn btn-danger') Delete

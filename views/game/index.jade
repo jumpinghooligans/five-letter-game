@@ -11,13 +11,15 @@ block content
 		each game in yourgames
 			p: a(href='/games/' + game.name) #{ game.name }
 	else
-		em You have no existing games...
+		p
+			em You have no existing games...
 
 	h3 Other Games
 	if othergames.length > 0
 		each game in othergames
 			p: a(href='/games/' + game.name) #{ game.name }
 	else
-		em There are no games...
+		p
+			em There are no games...
 	br
-	a(href='games/create', class='btn btn-primary') Create Game
+	a(href='games/create', class='btn btn-default') Create Game

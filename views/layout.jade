@@ -5,7 +5,7 @@ html
 
 		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Bevan')
 		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Lobster')
-		link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
+		link(rel='stylesheet', href='http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 
 		script(type='text/javascript', src='http://codeorigin.jquery.com/jquery-2.0.3.js')
@@ -17,7 +17,7 @@ html
 				#nav
 					if username
 						span#user
-							You are logged in as 
+							p You are logged in as 
 								span #{username}
 					ul
 						li: a(href='/users') Users
@@ -26,5 +26,5 @@ html
 							li: a(href='/users/logout') Logout
 						else
 							li: a(href='/users/login') Login
-		#container
+		#container.container
 			block content

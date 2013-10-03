@@ -4,12 +4,15 @@ block content
 	h1 Login page
 	each error in errors
 		.error #{ error }
-	form(method='POST')
-		p
-			label(for='username') Username: 
-			input(type='text', name='username')
-		p
-			label(for='password') Password: 
-			input(type='password', name='password')
-		p
-			input(type='submit', value='Login')
+	form(method='POST', class='form-horizontal')
+		.control-group
+			label(for='username', class='control-label') Username: 
+			.controls
+				input(type='text', name='username')
+		.control-group
+			label(for='password', class='control-label') Password: 
+			.controls
+				input(type='password', name='password')
+		.control-group
+			.controls
+				input(type='submit', value='Login', class='btn')
