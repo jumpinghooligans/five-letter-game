@@ -7,19 +7,27 @@ var Game = require("../models/game.js");
 exports.list = function (req, res) {
 	var username = req.session.username;
 
-	var yourgames = [];
-	var othergames = [];
+	var yourgames = null;
+	var othergames = null;
 
 	//good old async event nesting
 	Game.find({ $or: [{ player1: username }, {player2: username }]}, function (err, _yourgames) {
 		yourgames = _yourgames;
-
-		Game.find({$and: [{ player1: { $ne: username }}, { player2: { $ne: username }}]}, function (err, _othergames) {
-			othergames = _othergames;
-
-			res.render('game/index', {yourgames : yourgames, othergames : othergames, errors : req.flash('errors')});
-		});
+		complete();
 	});
+	Game.find({$and: [{ player1: { $ne: username }}, { player2: { $ne: username }}]}, function (err, _othergames) {
+		othergames = _othergames;
+		complete();
+	});
+
+	var complete = function() {
+		if((yourgames) && (othergames)) {
+			res.render('game/index', { 	yourgames : yourgames,
+									 	othergames : othergames,
+									 	errors : req.flash('errors')
+									});
+		}
+	}
 }
 
 exports.create = function(req, res) {
@@ -41,8 +49,10 @@ exports.destroy = function (req, res) {
 
 	Game.findOne({name : gamename}, function (err, game) {
 		if((req.session.username == game.player1) || (req.session.username == game.player2) || (req.session.username == 'admin')) {
-			Game.remove({_id : game._id}, function() {});
-			res.redirect('games');
+			Game.remove({_id : game._id}, function(err, game) {
+				req.flash('errors', err);
+				res.redirect('games');
+			});
 		} else {
 			req.flash('errors', 'You are not an owner of this game.');
 			res.redirect('games/' + gamename);
@@ -78,10 +88,19 @@ exports.move = function (req, res) {
 					});
 	} else {
 		var word = req.body[0] + req.body[1] + req.body[2] + req.body[3] + req.body[4];
-		Game.update({name : req.body.name},
-					{$push : {words : { player : req.body.player, word : word }}}, function (err, move) {
-						req.flash('errors' + err);
-					});
+
+		if(req.body.player == req.session.username) {
+			console.log(req.body.player + ' made a move.');
+			console.log(JSON.stringify( {words : { player : req.body.player, word : word }} ));
+			Game.update({name : req.body.name},
+						{$push : {words : { player : req.body.player, word : word }}}, function (err, move) {
+							console.log("errors: " + err);
+							req.flash('errors', err);
+						});
+		} else {
+			console.log("Username mismatch. " + req.session.username + " tried submitting a word for " + req.body.player);
+			req.flash('errors', ['You cannot do that.']);
+		}
 
 		res.redirect('games/' + req.body.name);
 	}

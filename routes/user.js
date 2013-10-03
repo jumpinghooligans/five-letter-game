@@ -1,7 +1,3 @@
-
-/*
- * GET users listing.
- */
 var User = require("../models/user.js");
 var Game = require("../models/game.js");
 

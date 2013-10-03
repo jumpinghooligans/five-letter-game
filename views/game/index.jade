@@ -1,17 +1,23 @@
 extends ../layout
 
 block content
+	h1 Games
+	hr
 	if errors
 		each error in errors
 			.error #{error}
+	h3 Your games
 	if yourgames.length > 0
-		h1 Your games
 		each game in yourgames
 			p: a(href='/games/' + game.name) #{ game.name }
+	else
+		em You have no existing games...
 
+	h3 Other Games
 	if othergames.length > 0
-		h1 Other Games
 		each game in othergames
 			p: a(href='/games/' + game.name) #{ game.name }
-
-	h2: a(href='games/create') Create Game
+	else
+		em There are no games...
+	br
+	a(href='games/create', class='btn btn-primary') Create Game

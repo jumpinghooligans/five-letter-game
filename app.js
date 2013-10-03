@@ -8,6 +8,7 @@
 	var routes = require('./routes');
 	var user = require('./routes/user');
 	var game = require('./routes/game');
+	var dev = require('./routes/dev');
 
 	var http = require('http');
 	var path = require('path');
@@ -84,6 +85,9 @@
 
 	app.post('/games/create', auth, game.create);
 	app.post('/games/:name', auth, game.move);
+
+	//Dev routes
+	app.get('/dev/inputtest', dev.inputtest);
 
 	http.createServer(app).listen(app.get('port'), function(){
 	console.log('Express server listening on port ' + app.get('port'));

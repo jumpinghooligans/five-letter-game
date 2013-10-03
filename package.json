@@ -10,6 +10,6 @@
     "jade": "*",
     "stylus": "*",
     "mongoose": "3.8",
-    "mongodb": "2.4.6"
+    "mongodb": "2.4.*"
   }
 }

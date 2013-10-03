@@ -25,7 +25,7 @@ block content
 				.guess
 					form(method='POST')
 						input(type='hidden', name='action', value='move')
-						input(type='hidden', name='player', value='player1')
+						input(type='hidden', name='player', value='#{game.player1}')
 						input(type='hidden', name='name', value='#{game.name}')
 						input(type='text', maxlength='1', name='0')
 						input(type='text', maxlength='1', name='1')
@@ -56,7 +56,7 @@ block content
 				.guess
 					form(method='POST')
 						input(type='hidden', name='action', value='move')
-						input(type='hidden', name='player', value='player2')
+						input(type='hidden', name='player', value='#{game.player2}')
 						input(type='hidden', name='name', value='#{game.name}')
 						input(type='text', maxlength='1', name='0')
 						input(type='text', maxlength='1', name='1')
