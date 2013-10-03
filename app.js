@@ -10,6 +10,9 @@
 	var game = require('./routes/game');
 	var dev = require('./routes/dev');
 
+	var devDb = 'mongodb://localhost/flg';
+	var herokuDb = 'mongodb://<user>:<password>@paulo.mongohq.com:10020/app18032920';
+
 	var http = require('http');
 	var path = require('path');
 
@@ -52,7 +55,7 @@
 		app.use(express.errorHandler());
 	}
 
-	mongoose.connect('mongodb://localhost/flg');
+	mongoose.connect(herokuDb);
 
 	var auth = function(req, res, next) {
 		if(req.session.username) {
