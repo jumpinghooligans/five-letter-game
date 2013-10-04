@@ -69,4 +69,5 @@ block content
 						p #{ move.word } (#{move.letters}) - [#{move.position}]
 	div(style='clear:both')
 	#options
-		h3: a(href="/games/#{game.name}/delete") Delete Game
+		a(href='/games', class='btn btn-default') Back to Games
+		a(href="/games/#{game.name}/delete", class='btn btn-danger') Delete Game
