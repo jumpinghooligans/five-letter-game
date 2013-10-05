@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 	$("#input_container .input").click(function(e) {
 		$(this).addClass("active");
-	}
+	});
 
 
-})
+});
