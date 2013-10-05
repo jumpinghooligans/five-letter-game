@@ -86,8 +86,13 @@ a:hover {
   padding-left: 4em;
 }
 #container {
+  position: relative;
   width: 1000px;
   margin: auto;
+  background-color: #fff;
+  z-index: -5;
+  padding: 2em;
+  box-shadow: 0 0 15px #aaa;
 }
 .player {
   width: 46%;
@@ -128,4 +133,14 @@ a:hover {
 }
 .player .inner .moves {
   padding: 1em;
+}
+#footer {
+  width: 1000px;
+  padding: 1em;
+  background-color: #fff;
+  margin: 2em auto;
+  box-shadow: 0 0 15px #aaa;
+}
+#footer .inner {
+  background-color: #fff;
 }
