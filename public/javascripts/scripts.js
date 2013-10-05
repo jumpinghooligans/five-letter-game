@@ -1,4 +1,4 @@
-$(document).ready(function () {
+/*$(document).ready(function () {
 	
 	$('.guess input').keyup(function(e){
 		if(e.keyCode == 8)
@@ -30,3 +30,4 @@ $(document).ready(function () {
 
 
 });
+*/

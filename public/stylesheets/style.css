@@ -32,10 +32,12 @@ a:hover {
   display: none;
 }
 #header {
+  position: relative;
   background-color: #e8510c;
   color: #fff;
   padding: 1em 0;
   box-shadow: 0 0 15px #000;
+  z-index: 50;
 }
 #header .container {
   width: 1024px;
@@ -90,7 +92,6 @@ a:hover {
   width: 1000px;
   margin: auto;
   background-color: #fff;
-  z-index: -5;
   padding: 2em;
   box-shadow: 0 0 15px #aaa;
 }
