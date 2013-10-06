@@ -3,11 +3,12 @@ html
 	head
 		title= title
 
-		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Bevan')
 		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Lobster')
-		link(rel='stylesheet', href='http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css')
+		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto:400,300')
+		link(rel='stylesheet', href='/stylesheets/bootstrap.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 
+		script(type='text/javascritp', src='http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js')
 		script(type='text/javascript', src='http://codeorigin.jquery.com/jquery-2.0.3.js')
 		script(type='text/javascript', src='/javascripts/scripts.js')
 	body
@@ -27,6 +28,7 @@ html
 						else
 							li: a(href='/users/login') Login
 		#container
-			block content
+			.inner
+				block content
 		#footer
 			.inner Copyright Ryan Kortmann 2013

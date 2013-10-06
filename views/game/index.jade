@@ -5,7 +5,7 @@ block content
 	hr
 	if errors
 		each error in errors
-			.error #{error}
+			.error.alert #{error}
 	h3 Your games
 	if yourgames.length > 0
 		each game in yourgames

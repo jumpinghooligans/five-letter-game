@@ -8,8 +8,7 @@ block content
 	#left.player
 		.inner
 			.title
-				.position home
-				.name #{ helpers.gameUsername(game.player1) }
+				.position #{ helpers.gameUsername(game.player1) }
 
 			if game.stage == "pick"
 				form(method='POST')
@@ -20,7 +19,7 @@ block content
 						.word #{ game.player1word }
 					else
 						input(type='text' ,name='word', maxlength='5')
-						input(type='submit')
+						input(type='submit', class='btn btn-primary')
 			else
 				.guess
 					form(method='POST')
@@ -32,15 +31,14 @@ block content
 						input(type='text', maxlength='1', name='2')
 						input(type='text', maxlength='1', name='3')
 						input(type='text', maxlength='1', name='4')
-						input(type='submit')
+						input(type='submit', class='btn btn-primary')
 				.moves
 					each move in helpers.getMoves(game.words, 'player1')
 						p #{ move.word } (#{move.letters}) - [#{move.position}]
 	#right.player
 		.inner
 			.title
-				.position away
-				.name #{ helpers.gameUsername(game.player2) }
+				.position #{ helpers.gameUsername(game.player2) }
 
 			if game.stage == "pick"
 				form(method='POST', name='newword')
@@ -51,7 +49,7 @@ block content
 						.word #{ game.player2word }
 					else
 						input(type='text' ,name='word', maxlength='5')
-						input(type='submit')
+						input(type='submit', class='btn btn-primary')
 			else
 				.guess
 					form(method='POST')
@@ -63,7 +61,7 @@ block content
 						input(type='text', maxlength='1', name='2')
 						input(type='text', maxlength='1', name='3')
 						input(type='text', maxlength='1', name='4')
-						input(type='submit')
+						input(type='submit', class='btn btn-primary')
 				.moves
 					each move in helpers.getMoves(game.words, 'player2')
 						p #{ move.word } (#{move.letters}) - [#{move.position}]

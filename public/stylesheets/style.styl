@@ -2,8 +2,17 @@ primary-orange-color = #FF9D00
 dark-orange-color = #E8510C
 link-color = #0011B2
 
+@keyframes navShadow
+	from {
+		color red
+	}
+	to {
+		color orange
+	}
+
 body 
-	font 14px Helvetica, Arial, sans-serif
+	font 14px Roboto, Arial, sans-serif
+	font-weight 300
 
 	padding 0
 	margin 0
@@ -97,8 +106,8 @@ a
 						vertical-align middle
 
 						&:hover
-							color primary-orange
-
+							text-shadow -1px 0 3px primary-orange-color, 0 1px 3px primary-orange-color, 1px 0 3px primary-orange-color, 0 -1px 3px primary-orange-color
+							
 					&:first-child
 
 						a
@@ -110,8 +119,14 @@ a
 	width 1000px
 	margin auto
 	background-color white
-	padding 2em
 	box-shadow 0 0 15px #aaa
+	border-bottom-left-radius 5px
+	border-bottom-right-radius 5px
+	
+#container
+
+	> .inner 
+		padding 2em
 
 .player
 	width 46%
@@ -121,7 +136,7 @@ a
 	float left;
 
 	.inner
-		border 1px solid #555
+		border 1px solid dark-orange-color
 
 		.title
 			font-size 150%
@@ -129,7 +144,7 @@ a
 
 			.position
 				padding 0.5em
-				background-color #555
+				background-color dark-orange-color
 				color white
 
 			.name
@@ -157,12 +172,11 @@ a
 
 #footer
 	width 1000px
-	padding 1em
 	background-color white
-	margin 2em auto
+	margin 1em auto
 
 	box-shadow 0 0 15px #aaa
+	border-radius 5px
 	
 	.inner
-
-		background-color white
+		padding 1em 2em

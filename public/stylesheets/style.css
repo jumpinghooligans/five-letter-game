@@ -1,5 +1,6 @@
 body {
-  font: 14px Helvetica, Arial, sans-serif;
+  font: 14px Roboto, Arial, sans-serif;
+  font-weight: 300;
   padding: 0;
   margin: 0;
   background: url("../images/gray-bg.jpg") repeat;
@@ -82,7 +83,7 @@ a:hover {
   vertical-align: middle;
 }
 #header .container #nav ul li a:hover {
-  color: primary-orange;
+  text-shadow: -1px 0 3px #ff9d00, 0 1px 3px #ff9d00, 1px 0 3px #ff9d00, 0 -1px 3px #ff9d00;
 }
 #header .container #nav ul li:first-child a {
   padding-left: 4em;
@@ -92,8 +93,12 @@ a:hover {
   width: 1000px;
   margin: auto;
   background-color: #fff;
-  padding: 2em;
   box-shadow: 0 0 15px #aaa;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+#container > .inner {
+  padding: 2em;
 }
 .player {
   width: 46%;
@@ -102,7 +107,7 @@ a:hover {
   float: left;
 }
 .player .inner {
-  border: 1px solid #555;
+  border: 1px solid #e8510c;
 }
 .player .inner .title {
   font-size: 150%;
@@ -110,7 +115,7 @@ a:hover {
 }
 .player .inner .title .position {
   padding: 0.5em;
-  background-color: #555;
+  background-color: #e8510c;
   color: #fff;
 }
 .player .inner .title .name {
@@ -137,11 +142,56 @@ a:hover {
 }
 #footer {
   width: 1000px;
-  padding: 1em;
   background-color: #fff;
-  margin: 2em auto;
+  margin: 1em auto;
   box-shadow: 0 0 15px #aaa;
+  border-radius: 5px;
 }
 #footer .inner {
-  background-color: #fff;
+  padding: 1em 2em;
+}
+@-moz-keyframes navShadow {
+  0% {
+    color: #f00;
+  }
+
+  100% {
+    color: #ffa500;
+  }
+}
+@-webkit-keyframes navShadow {
+  0% {
+    color: #f00;
+  }
+
+  100% {
+    color: #ffa500;
+  }
+}
+@-o-keyframes navShadow {
+  0% {
+    color: #f00;
+  }
+
+  100% {
+    color: #ffa500;
+  }
+}
+@-ms-keyframes navShadow {
+  0% {
+    color: #f00;
+  }
+
+  100% {
+    color: #ffa500;
+  }
+}
+@keyframes navShadow {
+  0% {
+    color: #f00;
+  }
+
+  100% {
+    color: #ffa500;
+  }
 }

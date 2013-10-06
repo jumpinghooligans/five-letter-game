@@ -4,7 +4,7 @@ block content
 	h1 Users
 	hr
 	each error in errors
-		.error #{ error }
+		.error.alert #{ error }
 	each user in users
 		p: a(href='/users/' + user.username) #{ user.username }
 
