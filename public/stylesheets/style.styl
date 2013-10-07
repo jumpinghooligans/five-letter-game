@@ -4,7 +4,7 @@ link-color = #0011B2
 
 @keyframes navShadow
 	from {
-		color red
+		color white
 	}
 	to {
 		color orange
@@ -73,10 +73,14 @@ a
 
 			a
 				color white
+				transition text-shadow 0.25s linear
 				text-shadow -1px 0 5px primary-orange-color, 0 1px 5px primary-orange-color, 1px 0 5px primary-orange-color, 0 -1px 5px primary-orange-color
 
 				&:hover
 					text-decoration none
+					transition text-shadow 0.25s linear
+					text-shadow -1px 0 15px primary-orange-color, 0 1px 15px primary-orange-color, 1px 0 15px primary-orange-color, 0 -1px 15px primary-orange-color
+
 
 		#user
 			float right
@@ -104,8 +108,12 @@ a
 						padding 0 2em
 
 						vertical-align middle
+						
+						transition text-shadow 0.25s linear
+						text-shadow none
 
 						&:hover
+							transition text-shadow 0.25s linear
 							text-shadow -1px 0 3px primary-orange-color, 0 1px 3px primary-orange-color, 1px 0 3px primary-orange-color, 0 -1px 3px primary-orange-color
 							
 					&:first-child

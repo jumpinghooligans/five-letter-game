@@ -2,9 +2,10 @@ extends ../layout
 
 block content
 	h1 #{ game.name }
+	hr
 	if errors
 		each error in errors
-			.error #{error}
+			.error.alert #{error}
 	#left.player
 		.inner
 			.title
