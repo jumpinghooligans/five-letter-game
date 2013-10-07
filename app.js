@@ -55,8 +55,8 @@
 		app.use(express.errorHandler());
 	}
 
-	//mongoose.connect(herokuDb);
-	mongoose.connect(devDb);
+	mongoose.connect(herokuDb);
+	//mongoose.connect(devDb);
 
 	var auth = function(req, res, next) {
 		if(req.session.username) {
