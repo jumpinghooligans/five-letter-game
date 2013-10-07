@@ -19,6 +19,9 @@ h4,
 h5 {
   font-family: 'Roboto Slab', serif;
 }
+.btn {
+  margin-right: 5px;
+}
 #input_container {
   display: block;
   width: 500px;
@@ -47,11 +50,12 @@ h5 {
 #header .container {
   width: 1024px;
   margin: auto;
-  overflow: hidden;
+  overflow: visible;
 }
 #header .container #logo {
   float: left;
   font-family: 'Lobster', cursive;
+  overflow: visible;
   padding-left: 9px;
   font-size: 30pt;
   letter-spacing: 3px;
@@ -64,7 +68,7 @@ h5 {
 #header .container #logo a:hover {
   text-decoration: none;
   transition: text-shadow 0.25s linear;
-  text-shadow: -1px 0 15px #ff9d00, 0 1px 15px #ff9d00, 1px 0 15px #ff9d00, 0 -1px 15px #ff9d00;
+  text-shadow: -1px 0 25px #ff9d00, 0 1px 25px #ff9d00, 1px 0 25px #ff9d00, 0 -1px 25px #ff9d00;
 }
 #header .container #user {
   float: right;
@@ -160,49 +164,4 @@ h5 {
 }
 #footer .inner {
   padding: 1em 2em;
-}
-@-moz-keyframes navShadow {
-  0% {
-    color: #fff;
-  }
-
-  100% {
-    color: #ffa500;
-  }
-}
-@-webkit-keyframes navShadow {
-  0% {
-    color: #fff;
-  }
-
-  100% {
-    color: #ffa500;
-  }
-}
-@-o-keyframes navShadow {
-  0% {
-    color: #fff;
-  }
-
-  100% {
-    color: #ffa500;
-  }
-}
-@-ms-keyframes navShadow {
-  0% {
-    color: #fff;
-  }
-
-  100% {
-    color: #ffa500;
-  }
-}
-@keyframes navShadow {
-  0% {
-    color: #fff;
-  }
-
-  100% {
-    color: #ffa500;
-  }
 }

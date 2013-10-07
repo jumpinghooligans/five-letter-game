@@ -8,14 +8,6 @@ dark-primary-color = #E8510C
 
 link-color = #0011B2
 
-@keyframes navShadow
-	from {
-		color white
-	}
-	to {
-		color orange
-	}
-
 body 
 	font 14px Roboto, Arial, sans-serif
 	font-weight 300
@@ -34,6 +26,9 @@ a
 		
 h1,h2,h3,h4,h5
 	font-family: 'Roboto Slab', serif;
+	
+.btn
+	margin-right 5px
 
 #input_container
 	display block
@@ -67,12 +62,13 @@ h1,h2,h3,h4,h5
 	.container
 		width 1024px
 		margin auto
-		overflow hidden
+		overflow visible
 
 		#logo
 			float left
 			//font-family 'Bevan', cursive
-			font-family: 'Lobster', cursive;
+			font-family 'Lobster', cursive
+			overflow visible
 			padding-left 9px
 			font-size 30pt
 			letter-spacing 3px
@@ -85,7 +81,7 @@ h1,h2,h3,h4,h5
 				&:hover
 					text-decoration none
 					transition text-shadow 0.25s linear
-					text-shadow -1px 0 15px primary-color, 0 1px 15px primary-color, 1px 0 15px primary-color, 0 -1px 15px primary-color
+					text-shadow -1px 0 25px primary-color, 0 1px 25px primary-color, 1px 0 25px primary-color, 0 -1px 25px primary-color
 
 
 		#user
