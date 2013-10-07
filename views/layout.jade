@@ -4,6 +4,7 @@ html
 		title= title
 
 		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Lobster')
+		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto+Slab')
 		link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Roboto:400,300')
 		link(rel='stylesheet', href='/stylesheets/bootstrap.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
@@ -17,9 +18,9 @@ html
 				#logo: a(href='/') five letters
 				#nav
 					if username
-						span#user
+						#user
 							p You are logged in as 
-								span #{username}
+								a(href='/users/#{username}') #{username}
 					ul
 						li: a(href='/users') Users
 						if username

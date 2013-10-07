@@ -2,7 +2,10 @@ extends ../layout
 
 block content
 	h1 #{ user.username }
-	p Joined: #{ user.joined.getFullYear() }
+	hr
+	p #{ user.username } has been a member since #{ helpers.getMonthName(user.joined.getMonth()) }, #{ user.joined.getFullYear() }
+	br
 	p
 		a(href='/users', class='btn btn-default') Back to Users
+	p
 		a(href='/users/' + user.username + '/delete', class='btn btn-danger') Delete

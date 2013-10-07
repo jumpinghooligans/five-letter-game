@@ -1,5 +1,11 @@
-primary-orange-color = #FF9D00
-dark-orange-color = #E8510C
+//orange
+primary-color = #FF9D00
+dark-primary-color = #E8510C
+
+//blue
+//primary-color = #FFA540
+//dark-primary-color = #071672
+
 link-color = #0011B2
 
 @keyframes navShadow
@@ -25,9 +31,9 @@ a
 
 	&:hover
 		text-decoration underline
-
-.btn
-	margin 0 5px
+		
+h1,h2,h3,h4,h5
+	font-family: 'Roboto Slab', serif;
 
 #input_container
 	display block
@@ -50,7 +56,7 @@ a
 #header
 	position relative
 
-	background-color dark-orange-color
+	background-color dark-primary-color
 	color white
 	padding 1em 0
 
@@ -74,21 +80,22 @@ a
 			a
 				color white
 				transition text-shadow 0.25s linear
-				text-shadow -1px 0 5px primary-orange-color, 0 1px 5px primary-orange-color, 1px 0 5px primary-orange-color, 0 -1px 5px primary-orange-color
+				text-shadow -1px 0 5px primary-color, 0 1px 5px primary-color, 1px 0 5px primary-color, 0 -1px 5px primary-color
 
 				&:hover
 					text-decoration none
 					transition text-shadow 0.25s linear
-					text-shadow -1px 0 15px primary-orange-color, 0 1px 15px primary-orange-color, 1px 0 15px primary-orange-color, 0 -1px 15px primary-orange-color
+					text-shadow -1px 0 15px primary-color, 0 1px 15px primary-color, 1px 0 15px primary-color, 0 -1px 15px primary-color
 
 
 		#user
 			float right
-			font-size 10px
+			font-size 11px
 			padding 0.5em 2em
-
-			span
-				color primary-orange-color
+				
+			a
+				color primary-color
+				font-weight 400
 
 		#nav
 
@@ -114,7 +121,7 @@ a
 
 						&:hover
 							transition text-shadow 0.25s linear
-							text-shadow -1px 0 3px primary-orange-color, 0 1px 3px primary-orange-color, 1px 0 3px primary-orange-color, 0 -1px 3px primary-orange-color
+							text-shadow -1px 0 3px primary-color, 0 1px 3px primary-color, 1px 0 3px primary-color, 0 -1px 3px primary-color
 							
 					&:first-child
 
@@ -144,7 +151,7 @@ a
 	float left;
 
 	.inner
-		border 1px solid dark-orange-color
+		border 1px solid dark-primary-color
 
 		.title
 			font-size 150%
@@ -152,7 +159,7 @@ a
 
 			.position
 				padding 0.5em
-				background-color dark-orange-color
+				background-color dark-primary-color
 				color white
 
 			.name

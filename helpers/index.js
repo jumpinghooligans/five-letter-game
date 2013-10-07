@@ -13,3 +13,14 @@ exports.getMoves = function(moves, player) {
 exports.getPlayerWord = function(game, player) { 
 	return (game["player"+player+"word"].length == 5) ? ".h1 word" : "aasf";
 }
+
+exports.getMonthName = function(monthNumber) {
+	var monthNames = [
+	    "January", "February", "March",
+	    "April", "May", "June",
+	    "July", "August", "September",
+	    "October", "November", "December"
+	];
+
+	return monthNames[monthNumber];
+}
