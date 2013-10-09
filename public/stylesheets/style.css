@@ -22,22 +22,17 @@ h5 {
 .btn {
   margin-right: 5px;
 }
-#input_container {
+#input {
   display: block;
-  width: 500px;
+  width: 50%;
+  height: 2em;
+  font-size: 200%;
   text-align: center;
-  margin: auto;
-  font-size: 30pt;
+  border: 1px solid #eee;
+  margin: 1em auto;
 }
-#input_container .input {
-  border: 1px solid #f00;
-  width: 150px;
-  margin: 1em;
-  float: left;
-  height: 100px;
-}
-#input_container .input .content .new {
-  display: none;
+#input.active {
+  border: 1px solid #ff9d00;
 }
 #header {
   position: relative;
@@ -98,6 +93,9 @@ h5 {
 }
 #header .container #nav ul li a:hover {
   transition: text-shadow 0.25s linear;
+  text-shadow: -1px 0 3px #ff9d00, 0 1px 3px #ff9d00, 1px 0 3px #ff9d00, 0 -1px 3px #ff9d00;
+}
+#header .container #nav ul li a.active {
   text-shadow: -1px 0 3px #ff9d00, 0 1px 3px #ff9d00, 1px 0 3px #ff9d00, 0 -1px 3px #ff9d00;
 }
 #header .container #nav ul li:first-child a {

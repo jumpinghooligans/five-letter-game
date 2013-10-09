@@ -10,6 +10,7 @@ block content
 		.inner
 			.title
 				.position #{ helpers.gameUsername(game.player1) }
+
 			if game.stage == "pick"
 				form(method='POST')
 					input(type='hidden', name='action', value='newword')
@@ -18,7 +19,7 @@ block content
 					if game.player1word.length == 5
 						.word #{ game.player1word }
 					else
-						input(type='text', id='input', name='word', maxlength='5')
+						input(type='text' ,name='word', maxlength='5')
 						input(type='submit', class='btn btn-primary')
 			else
 				.guess
@@ -26,7 +27,11 @@ block content
 						input(type='hidden', name='action', value='move')
 						input(type='hidden', name='player', value='#{game.player1}')
 						input(type='hidden', name='name', value='#{game.name}')
-						input(type='text', id='input', name='word', maxlength='5', value='')
+						input(type='text', maxlength='1', name='0')
+						input(type='text', maxlength='1', name='1')
+						input(type='text', maxlength='1', name='2')
+						input(type='text', maxlength='1', name='3')
+						input(type='text', maxlength='1', name='4')
 						input(type='submit', class='btn btn-primary')
 				.moves
 					each move in helpers.getMoves(game.words, 'player1')
@@ -38,11 +43,27 @@ block content
 				.position #{ helpers.gameUsername(game.player2) }
 
 			if game.stage == "pick"
-				if game.player2word.length == 5
-					.word #{ game.player2word }
-				else
-					.word: em Waiting for guess
+				form(method='POST', name='newword')
+					input(Type='hidden', name='action', value='newword')
+					input(type='hidden', name='player', value='player2')
+					input(type='hidden', name='name', value='#{game.name}')
+					if game.player2word.length == 5
+						.word #{ game.player2word }
+					else
+						input(type='text' ,name='word', maxlength='5')
+						input(type='submit', class='btn btn-primary')
 			else
+				.guess
+					form(method='POST')
+						input(type='hidden', name='action', value='move')
+						input(type='hidden', name='player', value='#{game.player2}')
+						input(type='hidden', name='name', value='#{game.name}')
+						input(type='text', maxlength='1', name='0')
+						input(type='text', maxlength='1', name='1')
+						input(type='text', maxlength='1', name='2')
+						input(type='text', maxlength='1', name='3')
+						input(type='text', maxlength='1', name='4')
+						input(type='submit', class='btn btn-primary')
 				.moves
 					each move in helpers.getMoves(game.words, 'player2')
 						p #{ move.word } (#{move.letters}) - [#{move.position}]

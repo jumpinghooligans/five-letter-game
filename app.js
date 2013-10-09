@@ -42,6 +42,7 @@
 	//middleware to pass session vars to template
 	app.use(function(req, res, next) {
 		res.locals.username = req.session.username;
+		res.locals.user = req.session.user;
 		res.locals.helpers = require('./helpers');
 
 		next();
@@ -55,8 +56,8 @@
 		app.use(express.errorHandler());
 	}
 
-	mongoose.connect(herokuDb);
-	//mongoose.connect(devDb);
+	//mongoose.connect(herokuDb);
+	mongoose.connect(devDb);
 
 	var auth = function(req, res, next) {
 		if(req.session.username) {

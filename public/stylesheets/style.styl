@@ -30,23 +30,20 @@ h1,h2,h3,h4,h5
 .btn
 	margin-right 5px
 
-#input_container
+#input
 	display block
-	width 500px
+
+	width 50%
+	height 2em;
+	
+	font-size 200%
 	text-align center
-	margin auto
-	font-size 30pt
 
-	.input
-		border 1px solid red
-		width 150px
-		margin 1em
-		float left
-		height 100px
-
-		.content
-			.new
-				display none
+	border 1px solid #eee
+	margin 1em auto
+	
+#input.active
+	border 1px solid primary-color
 
 #header
 	position relative
@@ -82,6 +79,9 @@ h1,h2,h3,h4,h5
 					text-decoration none
 					transition text-shadow 0.25s linear
 					text-shadow -1px 0 25px primary-color, 0 1px 25px primary-color, 1px 0 25px primary-color, 0 -1px 25px primary-color
+					
+			//a.active
+			//	text-shadow -1px 0 25px primary-color, 0 1px 25px primary-color, 1px 0 25px primary-color, 0 -1px 25px primary-color
 
 
 		#user
@@ -118,6 +118,9 @@ h1,h2,h3,h4,h5
 						&:hover
 							transition text-shadow 0.25s linear
 							text-shadow -1px 0 3px primary-color, 0 1px 3px primary-color, 1px 0 3px primary-color, 0 -1px 3px primary-color
+					
+					a.active
+						text-shadow -1px 0 3px primary-color, 0 1px 3px primary-color, 1px 0 3px primary-color, 0 -1px 3px primary-color
 							
 					&:first-child
 

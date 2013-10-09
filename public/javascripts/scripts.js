@@ -1,14 +1,34 @@
-/*$(document).ready(function () {
-	
-	$('.guess input').keyup(function(e){
-		if(e.keyCode == 8)
-			$(this).prev('input').select();
+$(document).ready(function () {
 
-    	if(String.fromCharCode(e.keyCode).match(/\w/))
-	    	$(this).next('input').focus();
-	});
+	$('#header a[href="' + $(location).attr('pathname') + '"]').addClass('active');
 
+	if($("#input").length > 0) {
+		console.log("input found");
+
+		$(document).bind("click", function(e) {
+			console.log("click");
+
+			//unbindInput();
+			$("#input").removeClass("active");
+		});
+
+		$("#input").bind("click", function(e) {
+			console.log("input clicked");
+
+			//bindInput();
+			$("#input").addClass("active");
+			e.stopPropagation();
+		});
+
+	}
+
+});
+
+/*function bindInput() {
+	console.log("bind");
+	unbindInput();
 	$(window).bind("keydown keypress", function(e) {
+		$('input[name="word"]').val($("#input").text());
 		if(e.keyCode == 8) {
 			e.preventDefault();
 			$("#input").text($("#input").text().substring(0, $("#input").text().length-1));
@@ -23,11 +43,12 @@
 			});
 		}
 	});
+}
 
-	$("#input_container .input").click(function(e) {
-		$(this).addClass("active");
-	});
-
-
-});
+function unbindInput() {
+	console.log("unbind");
+	$(window).unbind("keydown");
+	$(window).unbind("keypress");
+	$(window).unbind("keyup");
+}
 */

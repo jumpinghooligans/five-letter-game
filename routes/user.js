@@ -24,6 +24,7 @@ exports.login = function (req, res) {
 		User.findOne({username: req.body.username, password: req.body.password }, function(err, user) {
 			if(user) {
 				req.session.username = user.username;
+				req.session.user = user;
 				res.redirect('/');
 			} else {
 				req.flash('errors', 'Incorrect username or password.');
@@ -43,7 +44,7 @@ exports.logout = function(req, res) {
 
 exports.create = function (req, res) {
 	if(req.method == "POST") {
-		new User({ username : req.body.username, password: req.body.password }).save(function (err, user) {
+		new User({ username : req.body.username, password: req.body.password, email: req.body.email }).save(function (err, user) {
 			if(!err) {
 				req.session.username = req.body.username;
 				res.redirect("/");
