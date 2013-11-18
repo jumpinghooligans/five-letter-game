@@ -56,8 +56,8 @@
 		app.use(express.errorHandler());
 	}
 
-	mongoose.connect(herokuDb);
-	//mongoose.connect(devDb);
+	//mongoose.connect(herokuDb);
+	mongoose.connect(devDb);
 
 	var auth = function(req, res, next) {
 		if(req.session.username) {
@@ -90,6 +90,7 @@
 
 	app.post('/games/create', auth, game.create);
 	app.post('/games/:name', auth, game.move);
+	app.post('/games/:name/join', auth, game.join);
 
 	//Dev routes
 	app.get('/dev/inputtest', dev.inputtest);

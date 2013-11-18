@@ -15,7 +15,7 @@ var gameSchema = new Schema({
 		player : { type: String },
 		word : { type: String },
 		letters : { type: Number, default: 0 },
-		position : { type: Number, default: 0 }
+		positions : { type: Number, default: 0 }
 	}]
 
 });

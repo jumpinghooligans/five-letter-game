@@ -22,18 +22,6 @@ h5 {
 .btn {
   margin-right: 5px;
 }
-#input {
-  display: block;
-  width: 50%;
-  height: 2em;
-  font-size: 200%;
-  text-align: center;
-  border: 1px solid #eee;
-  margin: 1em auto;
-}
-#input.active {
-  border: 1px solid #ff9d00;
-}
 #header {
   position: relative;
   background-color: #e8510c;
@@ -123,32 +111,31 @@ h5 {
   border: 1px solid #e8510c;
 }
 .player .inner .title {
-  font-size: 150%;
-  color: #555;
-}
-.player .inner .title .position {
-  padding: 0.5em;
   background-color: #e8510c;
+  font-size: 150%;
   color: #fff;
-}
-.player .inner .title .name {
-  font-size: 75%;
   padding: 0.5em;
 }
-.player .inner .guess {
+.player .inner .title .word {
+  font-size: 75%;
+  float: right;
+}
+.player .inner .word-input {
+  padding: 1em;
+}
+.player .inner .word-input h1 {
   text-align: center;
 }
-.player .inner .guess input[type='text'] {
-  display: inline-block;
-  margin: 4% 1%;
-  padding: 0;
-  text-align: center;
-  width: 1em;
-  font-size: 400%;
-}
-.player .inner .guess input[type='submit'] {
+.player .inner .word-input input {
+  display: block;
   width: 50%;
   margin: auto;
+}
+.player .inner .word-input input[type='text'] {
+  text-align: center;
+  height: auto;
+  font-size: 30pt;
+  margin-bottom: 10px;
 }
 .player .inner .moves {
   padding: 1em;

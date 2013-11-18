@@ -30,21 +30,6 @@ h1,h2,h3,h4,h5
 .btn
 	margin-right 5px
 
-#input
-	display block
-
-	width 50%
-	height 2em;
-	
-	font-size 200%
-	text-align center
-
-	border 1px solid #eee
-	margin 1em auto
-	
-#input.active
-	border 1px solid primary-color
-
 #header
 	position relative
 
@@ -153,32 +138,31 @@ h1,h2,h3,h4,h5
 		border 1px solid dark-primary-color
 
 		.title
+			background-color dark-primary-color
 			font-size 150%
-			color #555
+			color white
+			padding 0.5em
 
-			.position
-				padding 0.5em
-				background-color dark-primary-color
-				color white
-
-			.name
+			.word
 				font-size 75%
-				padding 0.5em
+				float right
+				
+		.word-input
+			padding 1em
 
-		.guess
-			text-align center
-
-			input[type='text']
-				display inline-block
-				margin 4% 1%
-				padding 0
+			h1
 				text-align center
-				width 1em
-
-				font-size 400%
-			input[type='submit']
+				
+			input
+				display block
 				width 50%
 				margin auto
+				
+			input[type='text']
+				text-align center
+				height auto
+				font-size 30pt
+				margin-bottom 10px
 
 		.moves
 			padding 1em

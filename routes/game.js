@@ -3,6 +3,7 @@
  */
 var User = require("../models/user.js");
 var Game = require("../models/game.js");
+var Helpers = require("../helpers");
 
 exports.list = function (req, res) {
 	var username = req.session.username;
@@ -22,10 +23,11 @@ exports.list = function (req, res) {
 
 	var complete = function() {
 		if((yourgames) && (othergames)) {
-			res.render('game/index', { 	yourgames : yourgames,
-									 	othergames : othergames,
-									 	errors : req.flash('errors')
-									});
+			res.render('game/index', { 	
+				yourgames : yourgames,
+			 	othergames : othergames,
+			 	errors : req.flash('errors')
+			});
 		}
 	}
 }
@@ -54,7 +56,7 @@ exports.destroy = function (req, res) {
 				res.redirect('games');
 			});
 		} else {
-			req.flash('errors', 'You are not an owner of this game.');
+			req.flash('errors', ['You are not an owner of this game.']);
 			res.redirect('games/' + gamename);
 		}
 	});
@@ -62,47 +64,134 @@ exports.destroy = function (req, res) {
 
 exports.game = function(req, res) {
 	Game.findOne({ name : req.params.name}, function (err, game) {
-		res.render('game/game', { game: game, errors : req.flash('errors')});
+		console.log(err + ' ' + game);
+		if(game) {
+			res.render('game/game', { game: game, errors : req.flash('errors')});
+			return;
+		} else {
+			req.flash('errors', ['That game does not exists.']);
+			res.redirect('games');
+		}
 	});
 }
 
 exports.move = function (req, res) {
-	if(req.body.action == 'newword') {
-		var set = {};
-		set[req.body.player+'word'] = req.body.word;
 
-		Game.update({name : req.body.name},
-					{ $set : set}, function (err, move) {
-						req.flash('errors', err);
-						Game.findOne({name : req.body.name}, function(err, game) {
-							if((game.player1word.length == 5) && (game.player2word.length == 5)) {
-								Game.update({name : req.body.name},
-											{stage : 'guess'}, function (err, game) {
-												req.flash('errors', err);
-												res.redirect('games/' + req.body.name);
-											});
-							} else {
-								res.redirect('games/' + req.body.name);
-							}
-						});
-					});
-	} else {
-		var word = req.body[0] + req.body[1] + req.body[2] + req.body[3] + req.body[4];
+	console.log("Making move.");
 
-		if(req.body.player == req.session.username) {
-			console.log(req.body.player + ' made a move.');
-			console.log(JSON.stringify( {words : { player : req.body.player, word : word }} ));
-			Game.update({name : req.body.name},
-						{$push : {words : { player : req.body.player, word : word }}}, function (err, move) {
-							console.log("errors: " + err);
-							req.flash('errors', err);
-						});
+	var gamename = req.params.name;
+	var playername = req.session.username;
+	var word = req.body.word;
+
+	Game.findOne({ name : gamename }, function(err, game) {
+
+		//if both words aren't set, attempt to use this action to set them
+		if((!game.player1word) || (!game.player2word)) {
+			if((game.player1 == playername) && (!game.player1word)) {
+				var set = { player1word : word };
+
+				Game.update(game, { $set : set }, function(error) {
+					console.log("set user: " + game.player1 + " word to " + word);
+				});
+			} else if((game.player2 == playername) && (!game.player2word)) {
+				var set = { player2word : word };
+
+				Game.update(game, { $set : set }, function(error) {
+					console.log("set user: " + game.player2 + " word to " + word);
+				});
+			} else {
+				req.flash('errors', ['You do not have permission to do that.']);
+			}
+			res.redirect(req.url);
 		} else {
-			console.log("Username mismatch. " + req.session.username + " tried submitting a word for " + req.body.player);
-			req.flash('errors', ['You cannot do that.']);
+
+			console.log('both words set, move is now a guess.')
+			console.log(game);
+
+			//more sophisticated word check to come
+			if(word.length == 5) {
+				var next_move = {};
+
+				if(game.words.length % 2 == 0) {
+
+					//player1's turn
+					if(game.player1 == playername) {
+
+						next_move.player = playername;
+						next_move.word = word;
+						next_move.letters = Helpers.getLetters(word, game.player2word);
+						next_move.positions = Helpers.getPositions(word, game.player2word);
+
+					} else {
+						req.flash('errors', ['It is not your turn.']);
+						res.redirect(req.url);
+						return;
+					}
+
+				} else {
+
+					//player2's turn
+					if(game.player2 == playername) {
+
+						next_move.player = playername;
+						next_move.word = word;
+						next_move.letters = Helpers.getLetters(word, game.player1word);
+						next_move.positions = Helpers.getPositions(word, game.player1word);
+
+					} else {
+						req.flash('errors', ['It is not your turn.']);
+						res.redirect(req.url);
+						return;
+					}
+
+				}
+
+				Game.update(game, {$push : {words : next_move}}, function (err, rows) {
+					console.log('pushing: ' + JSON.stringify(next_move));
+					console.log('errors: ' + rows);
+					req.flash('errors', err);
+					res.redirect(req.url);
+					return;
+				});
+			} else {
+				req.flash('errors', ['Invalid word entered.']);
+				res.redirect(req.url);
+				return;
+			}
+		}
+	});
+}
+
+exports.join = function (req, res) {
+
+	console.log(req.session.username + ' wants to join ' + req.params.name);
+
+	var gameurl = req.headers.referer;
+
+	Game.findOne({ name : req.params.name }, function(err, game) {
+
+
+		if((game.player1) && (game.player2)){
+			req.flash('errors', ['This game already has two players.']);
+			res.redirect(gameurl);
+			return;
 		}
 
-		res.redirect('games/' + req.body.name);
-	}
+		if(game.player1 == req.session.username) {
+			req.flash('errors', ['You are already in this game.']);
+			res.redirect(gameurl);
+			return;
+		}
+
+		//set this guy as player2
+		var set = {player2 : req.session.username};
+		Game.update(game, {$set : set}, function(err){
+			console.log('success.');
+			res.redirect(gameurl);
+			return;
+		});
+
+	});
+
 }
 

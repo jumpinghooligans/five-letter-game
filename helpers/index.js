@@ -3,6 +3,7 @@ exports.gameUsername = function(username) {
 }
 
 exports.getMoves = function(moves, player) {
+	console.log('getMoves: filtering ' + moves.length + ' moves for ' + player);
 	var filtered = [];
 	for(var i=0; i<moves.length; i++) {
 		if(moves[i].player == player) filtered.push(moves[i]);
@@ -23,4 +24,26 @@ exports.getMonthName = function(monthNumber) {
 	];
 
 	return monthNames[monthNumber];
+}
+
+exports.getLetters = function (guess, word) {
+	var count = 0;
+	for(var i=0; i<guess.length; i++) {
+		if(word.indexOf(guess.charAt(i)) != -1) {
+			count++;
+		}
+	}
+
+	return count;
+}
+
+exports.getPositions = function (guess, word) {
+	var count = 0;
+	for(var i=0; i<guess.length; i++) {
+		if(guess.charAt(i) == word.charAt(i)) {
+			count++;
+		}
+	}
+
+	return count;
 }
