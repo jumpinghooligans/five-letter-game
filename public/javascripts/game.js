@@ -22,8 +22,6 @@ function updateBoard(data) {
 	var sender = data.username;
 	var gamename = data.gamename;
 	$.get("/games/"+gamename+"/updateboard", { "sender" : sender, "name" : gamename }).done(function(data) {
-		alert(data);
-
-		$("#"+sender+" .moves").html("asfa");
+		$("#"+sender+" .moves").html(data);
 	});
 }
