@@ -47,3 +47,11 @@ exports.getPositions = function (guess, word) {
 
 	return count;
 }
+
+exports.shouldOpenSocket = function(game) {
+	return ((game.player1) && (game.player2)) ? true : false;
+}
+
+exports.getTarget = function(game, user) {
+	return (game.player1 == user) ? game.player2 : game.player1;
+}

@@ -19,6 +19,8 @@
 	var mongoose = require('mongoose');
 	var flash = require('connect-flash');
 
+	var helpers = require('./helpers');
+
 	var app = express();
 
 	// all environments
@@ -43,7 +45,7 @@
 	app.use(function(req, res, next) {
 		res.locals.username = req.session.username;
 		res.locals.user = req.session.user;
-		res.locals.helpers = require('./helpers');
+		res.locals.helpers = helpers;
 
 		next();
 	});
@@ -56,8 +58,8 @@
 		app.use(express.errorHandler());
 	}
 
-	mongoose.connect(herokuDb);
-	//mongoose.connect(devDb);
+	//mongoose.connect(herokuDb);
+	mongoose.connect(devDb);
 
 	var auth = function(req, res, next) {
 		if(req.session.username) {
@@ -87,6 +89,7 @@
 
 	app.get('/games/:name', auth, game.game);
 	app.get('/games/:name/delete', auth, game.destroy);
+	app.get('/games/:name/updateboard', auth, game.updateBoard);
 
 	app.post('/games/create', auth, game.create);
 	app.post('/games/:name', auth, game.move);
@@ -95,6 +98,25 @@
 	//Dev routes
 	app.get('/dev/inputtest', dev.inputtest);
 
-	http.createServer(app).listen(app.get('port'), function(){
-	console.log('Express server listening on port ' + app.get('port'));
+	var server = http.createServer(app);
+
+	var io = require('socket.io').listen(server);
+
+	server.listen(app.get('port'), function(){
+		console.log('Express server listening on port ' + app.get('port'));
+	});
+
+	var currentPlayers = {};
+	io.sockets.on('connection', function (socket) {
+		socket.emit('connected', { message: 'success' });
+
+		socket.on('register', function(data) {
+			console.log(data.username + ' joined the room: ' + data.gamename);
+			socket.join(data.gamename);
+		});
+
+		socket.on('move', function (data) {
+			console.log('broadcast to ' + data.gamename);
+			socket.broadcast.to(data.gamename).emit('updateBoard', data);
+		});
 	});

@@ -64,7 +64,6 @@ exports.destroy = function (req, res) {
 
 exports.game = function(req, res) {
 	Game.findOne({ name : req.params.name}, function (err, game) {
-		console.log(err + ' ' + game);
 		if(game) {
 			res.render('game/game', { game: game, errors : req.flash('errors')});
 			return;
@@ -76,9 +75,6 @@ exports.game = function(req, res) {
 }
 
 exports.move = function (req, res) {
-
-	console.log("Making move.");
-
 	var gamename = req.params.name;
 	var playername = req.session.username;
 	var word = req.body.word;
@@ -193,5 +189,11 @@ exports.join = function (req, res) {
 
 	});
 
+}
+
+exports.updateBoard = function(req, res) {
+	Game.findOne({ name : req.query.name }, function(err, game) {
+		res.render('game/moves', { player : req.query.sender, game : game });
+	})
 }
 
