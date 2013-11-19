@@ -1,11 +1,10 @@
-var devSockets = 'http://localhost';
-var herokuSockets = 'http://five-letter-game.herokuapp.com';
+
 
 $(document).ready(function() {
 
 	var socketInfo = getSocketInfo();
 	if(socketInfo.enableSocket) {
-		var socket = io.connect(herokuSockets);
+		var socket = io.connect(window.location.hostname);
 		socket.on('connected', function (data) {
 			socket.emit('register', socketInfo);
 			$("#submitWord").click(function() {
