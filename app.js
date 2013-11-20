@@ -35,7 +35,7 @@
 	app.use(express.cookieParser());
 
 	app.use(express.session({
-		secret: 'yoursecret',
+		secret: 'supersecretcode',
 		cookie: {
 			maxAge: 1000 * 60 * 24 // 24 hours
 		}
@@ -50,7 +50,6 @@
 
 		next();
 	});
-	app.use(app.router);
 	app.use(require('stylus').middleware(__dirname + '/public'));
 	app.use(express.static(path.join(__dirname, 'public')));
 
@@ -111,7 +110,7 @@
 
 
 	//SOCKET.IO CONFIGURATION
-
+	/*
 	var connectedPlayers = {};
 
 	io.sockets.on('connection', function (socket) {
@@ -154,3 +153,5 @@
 		console.log('broadcast to ' + data.game);
 		io.sockets.sockets[connectedPlayers[data.sender]].broadcast.to(data.game).emit('player_move', data);
 	});
+	*/
+	app.use(app.router);
