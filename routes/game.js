@@ -4,10 +4,12 @@
 var User = require("../models/user.js");
 var Game = require("../models/game.js");
 var Helpers = require("../helpers");
+var eventEmitter = new (require('events').EventEmitter)();
+
+exports.Events = eventEmitter;
 
 exports.list = function (req, res) {
 	var username = req.session.username;
-
 	var yourgames = null;
 	var othergames = null;
 
@@ -87,12 +89,14 @@ exports.move = function (req, res) {
 				var set = { player1word : word };
 
 				Game.update(game, { $set : set }, function(error) {
+					eventEmitter.emit("player_picked_word", { "sender" : game.player1, "game" : game.name, "word" : word });
 					console.log("set user: " + game.player1 + " word to " + word);
 				});
 			} else if((game.player2 == playername) && (!game.player2word)) {
 				var set = { player2word : word };
 
 				Game.update(game, { $set : set }, function(error) {
+					eventEmitter.emit("player_picked_word", { "sender" : game.player2, "game" : game.name, "word" : word });
 					console.log("set user: " + game.player2 + " word to " + word);
 				});
 			} else {
@@ -143,8 +147,9 @@ exports.move = function (req, res) {
 				}
 
 				Game.update(game, {$push : {words : next_move}}, function (err, rows) {
-					console.log('pushing: ' + JSON.stringify(next_move));
-					console.log('errors: ' + rows);
+					console.log("player_move event sent");
+					eventEmitter.emit("player_move", { "sender" : playername, "game": game.name });
+
 					req.flash('errors', err);
 					res.redirect(req.url);
 					return;
@@ -183,6 +188,10 @@ exports.join = function (req, res) {
 		var set = {player2 : req.session.username};
 		Game.update(game, {$set : set}, function(err){
 			console.log('success.');
+
+			console.log("player_joined event sent");
+			eventEmitter.emit("player_joined", { "sender" : req.session.username, "player1" : game.player1, "game": game.name });
+
 			res.redirect(gameurl);
 			return;
 		});
@@ -197,3 +206,8 @@ exports.updateBoard = function(req, res) {
 	})
 }
 
+exports.updatePlayer = function(req, res) {
+	Game.findOne({ name : req.query.name }, function(err, game) {
+		res.render('game/newplayer', { player : req.query.sender, game : game });
+	})
+}

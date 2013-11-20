@@ -1,5 +1,5 @@
 exports.gameUsername = function(username) {
-	return (username) ? username : "waiting for user"
+	return (username) ? { className : "", value : username } : { className : "italic", value : "waiting for user"}
 }
 
 exports.getMoves = function(moves, player) {

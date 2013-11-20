@@ -4,6 +4,7 @@
 	*/
 
 	var express = require('express');
+	var events = require('events');
 
 	var routes = require('./routes');
 	var user = require('./routes/user');
@@ -62,6 +63,7 @@
 	//mongoose.connect(devDb);
 
 	var auth = function(req, res, next) {
+		console.log(req.session);
 		if(req.session.username) {
 			next();
 		} else {
@@ -90,6 +92,7 @@
 	app.get('/games/:name', auth, game.game);
 	app.get('/games/:name/delete', auth, game.destroy);
 	app.get('/games/:name/updateboard', auth, game.updateBoard);
+	app.get('/games/:name/updateplayer', auth, game.updatePlayer);
 
 	app.post('/games/create', auth, game.create);
 	app.post('/games/:name', auth, game.move);
@@ -106,17 +109,48 @@
 		console.log('Express server listening on port ' + app.get('port'));
 	});
 
-	var currentPlayers = {};
+
+	//SOCKET.IO CONFIGURATION
+
+	var connectedPlayers = {};
+
 	io.sockets.on('connection', function (socket) {
 		socket.emit('connected', { message: 'success' });
 
 		socket.on('register', function(data) {
-			console.log(data.username + ' joined the room: ' + data.gamename);
+			connectedPlayers[data.username] = socket.id;
 			socket.join(data.gamename);
+
+			console.log(data.username + ' joined the room: ' + data.gamename);
+			console.log("Connected players:");
+			console.log(connectedPlayers);
 		});
 
-		socket.on('move', function (data) {
-			console.log('broadcast to ' + data.gamename);
-			socket.broadcast.to(data.gamename).emit('updateBoard', data);
+		socket.on('disconnect', function(){
+			for(username in connectedPlayers) {
+				if(connectedPlayers[username] == socket.id) {
+					console.log(username + ' disconnected');
+					delete connectedPlayers[username];
+				}
+			}
+
+			console.log("Connected players:");
+			console.log(connectedPlayers);
 		});
+	});
+
+
+	game.Events.on("player_joined", function(data) {
+		console.log('broadcast check ' + data.game + ' games player, current player ' + data.player1);
+		io.sockets.sockets[connectedPlayers[data.sender]].broadcast.to(data.game).emit('player_joined', data);
+	});
+
+	game.Events.on("player_picked_word", function(data) {
+		console.log('player ' + data.sender + ' picked word.');
+		io.sockets.sockets[connectedPlayers[data.sender]].broadcast.to(data.game).emit('player_picked_word');
+	});
+
+	game.Events.on("player_move", function(data) {
+		console.log('broadcast to ' + data.game);
+		io.sockets.sockets[connectedPlayers[data.sender]].broadcast.to(data.game).emit('player_move', data);
 	});

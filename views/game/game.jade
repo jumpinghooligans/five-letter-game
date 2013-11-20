@@ -10,7 +10,7 @@ block content
 		.inner
 			.title
 				.word #{ game.player1word }
-				.name #{ helpers.gameUsername(game.player1) }
+				div(class='name #{ helpers.gameUsername(game.player1).className }') #{ helpers.gameUsername(game.player1).value }
 			.word-input
 				if game.player1 == username
 					form(method='POST')
@@ -26,11 +26,14 @@ block content
 		.inner
 			.title
 				.word #{ game.player2word }
-				.name #{ helpers.gameUsername(game.player2) }
+				div(class='name #{ helpers.gameUsername(game.player2).className }') #{ helpers.gameUsername(game.player2).value }
 			if !game.player2
 				.word-input
-					form(method='POST', action='/games/#{game.name}/join')
-						input(type='submit', value='Join Game', class='btn btn-primary')
+					if game.player1 == username
+						em waiting for a word
+					else
+						form(method='POST', action='/games/#{game.name}/join')
+							input(type='submit', value='Join Game', class='btn btn-primary')
 			else
 				.word-input
 					if game.player2 == username
@@ -51,7 +54,6 @@ block content
 	script(type='text/javascript').
 		function getSocketInfo() {
 			var data = {};
-			data.enableSocket = #{ helpers.shouldOpenSocket(game) };
 			data.username = "#{ username }";
 			data.gamename = "#{ game.name }";
 			return data;
