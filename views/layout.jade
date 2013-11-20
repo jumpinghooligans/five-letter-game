@@ -18,10 +18,10 @@ html
 			.container
 				#logo: a(href='/') five letters
 				#nav
-					if username
+					if user
 						#user
 							p You are logged in as 
-								a(href='/users/#{username}') #{username}
+								a(href='/users/#{username}') #{user.username}
 					ul
 						li: a(href='/users') Users
 						if username
