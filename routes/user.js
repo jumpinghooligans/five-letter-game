@@ -39,8 +39,7 @@ exports.login = function (req, res) {
 exports.logout = function(req, res) {
 	console.log("logged out: " + req.session.username);
 	console.log(req.session);
-	delete req.session.username;
-	delete req.session.user;
+	req.session.destroy();
 
 	res.redirect('/');
 }
