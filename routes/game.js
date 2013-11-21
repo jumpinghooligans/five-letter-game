@@ -83,33 +83,32 @@ exports.move = function (req, res) {
 
 	Game.findOne({ name : gamename }, function(err, game) {
 
-		//if both words aren't set, attempt to use this action to set them
-		if((!game.player1word) || (!game.player2word)) {
-			if((game.player1 == playername) && (!game.player1word)) {
-				var set = { player1word : word };
+		//more sophisticated word check to come
+		if(word.length == 5) {
+			//if both words aren't set, attempt to use this action to set them
+			if((!game.player1word) || (!game.player2word)) {
+				if((game.player1 == playername) && (!game.player1word)) {
+					var set = { player1word : word };
 
-				Game.update(game, { $set : set }, function(error) {
-					eventEmitter.emit("player_picked_word", { "sender" : game.player1, "game" : game.name, "word" : word });
-					console.log("set user: " + game.player1 + " word to " + word);
-				});
-			} else if((game.player2 == playername) && (!game.player2word)) {
-				var set = { player2word : word };
+					Game.update(game, { $set : set }, function(error) {
+						eventEmitter.emit("player_picked_word", { "sender" : game.player1, "game" : game.name, "word" : word });
+						console.log("set user: " + game.player1 + " word to " + word);
+					});
+				} else if((game.player2 == playername) && (!game.player2word)) {
+					var set = { player2word : word };
 
-				Game.update(game, { $set : set }, function(error) {
-					eventEmitter.emit("player_picked_word", { "sender" : game.player2, "game" : game.name, "word" : word });
-					console.log("set user: " + game.player2 + " word to " + word);
-				});
+					Game.update(game, { $set : set }, function(error) {
+						eventEmitter.emit("player_picked_word", { "sender" : game.player2, "game" : game.name, "word" : word });
+						console.log("set user: " + game.player2 + " word to " + word);
+					});
+				} else {
+					req.flash('errors', ['You do not have permission to do that.']);
+				}
+				res.redirect(req.url);
 			} else {
-				req.flash('errors', ['You do not have permission to do that.']);
-			}
-			res.redirect(req.url);
-		} else {
+				console.log('both words set, move is now a guess.')
+				console.log(game);
 
-			console.log('both words set, move is now a guess.')
-			console.log(game);
-
-			//more sophisticated word check to come
-			if(word.length == 5) {
 				var next_move = {};
 
 				if(game.words.length % 2 == 0) {
@@ -154,14 +153,16 @@ exports.move = function (req, res) {
 					res.redirect(req.url);
 					return;
 				});
-			} else {
-				req.flash('errors', ['Invalid word entered.']);
-				res.redirect(req.url);
-				return;
 			}
+		} else {
+			req.flash('errors', ['Invalid word entered.']);
+			res.redirect(req.url);
+			return;
 		}
 	});
 }
+
+
 
 exports.join = function (req, res) {
 
