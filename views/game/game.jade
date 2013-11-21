@@ -12,7 +12,7 @@ block content
 				.word #{ game.player1word }
 				div(class='name #{ helpers.gameUsername(game.player1).className }') #{ helpers.gameUsername(game.player1).value }
 			.word-input
-				if game.player1 == username
+				if game.player1 == user.username
 					form(method='POST')
 						input(type='text', id='input', name='word', maxlength='5', value='')
 						input(type='submit', id='submitWord', class='btn btn-default')
@@ -29,14 +29,14 @@ block content
 				div(class='name #{ helpers.gameUsername(game.player2).className }') #{ helpers.gameUsername(game.player2).value }
 			if !game.player2
 				.word-input
-					if game.player1 == username
+					if game.player1 == user.username
 						em waiting for a word
 					else
 						form(method='POST', action='/games/#{game.name}/join')
 							input(type='submit', value='Join Game', class='btn btn-primary')
 			else
 				.word-input
-					if game.player2 == username
+					if game.player2 == user.username
 						form(method='POST')
 							input(type='text', id='input', name='word', maxlength='5', value='')
 							input(type='submit', id='submitWord', class='btn btn-default')
@@ -54,7 +54,7 @@ block content
 	script(type='text/javascript').
 		function getSocketInfo() {
 			var data = {};
-			data.username = "#{ username }";
+			data.username = "#{ user.username }";
 			data.gamename = "#{ game.name }";
 			return data;
 		}

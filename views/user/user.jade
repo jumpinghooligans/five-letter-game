@@ -1,11 +1,11 @@
 extends ../layout
 
 block content
-	h1 #{ user.username }
+	h1 #{ thisUser.username }
 	hr
-	p #{ user.username } has been a member since #{ helpers.getMonthName(user.joined.getMonth()) }, #{ user.joined.getFullYear() }
-	p: a(href='mailto:#{ user.email }') #{ user.email }
+	p #{ thisUser.username } has been a member since #{ helpers.getMonthName(thisUser.joined.getMonth()) }, #{ thisUser.joined.getFullYear() }
+	p: a(href='mailto:#{ thisUser.email }') #{ thisUser.email }
 	br
 	p
 		a(href='/users', class='btn btn-default') Back to Users
-		a(href='/users/' + user.username + '/delete', class='btn btn-danger') Delete
+		a(href='/users/' + thisUser.username + '/delete', class='btn btn-danger') Delete

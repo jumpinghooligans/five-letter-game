@@ -2,6 +2,9 @@ extends ../layout
 
 block content
 	h1 Create User
+	if errors
+		each error in errors
+			.error.alert #{error}
 	form(method ='post', action='')
 		p
 			label(for='username') Username: 

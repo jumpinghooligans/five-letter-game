@@ -9,7 +9,7 @@ var eventEmitter = new (require('events').EventEmitter)();
 exports.Events = eventEmitter;
 
 exports.list = function (req, res) {
-	var username = req.session.username;
+	var username = req.session.user.username;
 	var yourgames = null;
 	var othergames = null;
 
@@ -36,7 +36,7 @@ exports.list = function (req, res) {
 
 exports.create = function(req, res) {
 	if(req.method == "POST") {
-		new Game( {name: req.body.gamename, player1: req.session.username }).save(function (err, game) {
+		new Game( {name: req.body.gamename, player1: req.session.user.username }).save(function (err, game) {
 			if(!err) {
 				res.redirect('games/' + req.body.gamename.toLowerCase());
 			} else {
@@ -52,7 +52,7 @@ exports.destroy = function (req, res) {
 	var gamename = req.params.name;
 
 	Game.findOne({name : gamename}, function (err, game) {
-		if((req.session.username == game.player1) || (req.session.username == game.player2) || (req.session.username == 'admin')) {
+		if((req.session.user.username == game.player1) || (req.session.user.username == game.player2) || (req.session.user.username == 'admin')) {
 			Game.remove({_id : game._id}, function(err, game) {
 				req.flash('errors', err);
 				res.redirect('games');
@@ -78,7 +78,7 @@ exports.game = function(req, res) {
 
 exports.move = function (req, res) {
 	var gamename = req.params.name;
-	var playername = req.session.username;
+	var playername = req.session.user.username;
 	var word = req.body.word;
 
 	Game.findOne({ name : gamename }, function(err, game) {
@@ -165,7 +165,9 @@ exports.move = function (req, res) {
 
 exports.join = function (req, res) {
 
-	console.log(req.session.username + ' wants to join ' + req.params.name);
+	var user = req.session.user;
+
+	console.log(user.username + ' wants to join ' + req.params.name);
 
 	var gameurl = req.headers.referer;
 
@@ -178,19 +180,19 @@ exports.join = function (req, res) {
 			return;
 		}
 
-		if(game.player1 == req.session.username) {
+		if(game.player1 == user.username) {
 			req.flash('errors', ['You are already in this game.']);
 			res.redirect(gameurl);
 			return;
 		}
 
 		//set this guy as player2
-		var set = {player2 : req.session.username};
+		var set = {player2 : user.username};
 		Game.update(game, {$set : set}, function(err){
 			console.log('success.');
 
 			console.log("player_joined event sent");
-			eventEmitter.emit("player_joined", { "sender" : req.session.username, "player1" : game.player1, "game": game.name });
+			eventEmitter.emit("player_joined", { "sender" : user.username, "player1" : game.player1, "game": game.name });
 
 			res.redirect(gameurl);
 			return;

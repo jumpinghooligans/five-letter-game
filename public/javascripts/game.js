@@ -36,6 +36,5 @@ function player_picked_word(data) {
 	var sender = data.sender;
 	var gamename = data.game;
 	var word = data.word;
-	alert(data.word);
 	$("#" + sender + " .word").html(word);
 }

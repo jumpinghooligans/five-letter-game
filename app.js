@@ -58,12 +58,17 @@
 		app.use(express.errorHandler());
 	}
 
+	/*
+	 * Database configurations
+	 * Need to figure out how to automate this
+	 */
+
 	mongoose.connect(herokuDb);
 	//mongoose.connect(devDb);
 
 	var auth = function(req, res, next) {
 		console.log(req.session);
-		if(req.session.username) {
+		if(req.session.user) {
 			next();
 		} else {
 			res.redirect('users/login');
@@ -110,7 +115,7 @@
 
 
 	//SOCKET.IO CONFIGURATION
-	/*
+	
 	var connectedPlayers = {};
 
 	io.sockets.on('connection', function (socket) {
@@ -146,12 +151,12 @@
 
 	game.Events.on("player_picked_word", function(data) {
 		console.log('player ' + data.sender + ' picked word.');
-		io.sockets.sockets[connectedPlayers[data.sender]].broadcast.to(data.game).emit('player_picked_word');
+		io.sockets.sockets[connectedPlayers[data.sender]].broadcast.to(data.game).emit('player_picked_word', data);
 	});
 
 	game.Events.on("player_move", function(data) {
 		console.log('broadcast to ' + data.game);
 		io.sockets.sockets[connectedPlayers[data.sender]].broadcast.to(data.game).emit('player_move', data);
 	});
-	*/
+	
 	app.use(app.router);

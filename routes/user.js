@@ -12,7 +12,7 @@ exports.user = function (req, res) {
 	
 	User.findOne({username: req.params.username}, function(err, user) {
 		if(user) {
-			res.render("user/user", { user : user })
+			res.render("user/user", { thisUser : user })
 		} else {
 			res.send("Username: " + req.params.username + " not found in database.");
 		}
@@ -23,7 +23,6 @@ exports.login = function (req, res) {
 	if(req.method == "POST") {
 		User.findOne({username: req.body.username, password: req.body.password }, function(err, user) {
 			if(user) {
-				req.session.username = user.username;
 				req.session.user = user;
 				res.redirect('/');
 			} else {
@@ -32,12 +31,12 @@ exports.login = function (req, res) {
 			}
 		})
 	} else {
-		res.render("user/login", {errors : req.flash('errors')});
+		res.render("user/login", {errors : []});
 	}
 }
 
 exports.logout = function(req, res) {
-	console.log("logged out: " + req.session.username);
+	console.log("logged out: " + req.session.user.username);
 	console.log(req.session);
 	req.session.destroy();
 
@@ -48,10 +47,11 @@ exports.create = function (req, res) {
 	if(req.method == "POST") {
 		new User({ username : req.body.username, password: req.body.password, email: req.body.email }).save(function (err, user) {
 			if(!err) {
-				req.session.username = req.body.username;
+				req.session.user.username = req.body.username;
 				res.redirect("/");
 			} else {
-				res.render("user/create", {error : err});
+				console.log("create user error: " + err);
+				res.render("user/create", {errors : [err]});
 			}
 		});
 	} else {
@@ -60,11 +60,11 @@ exports.create = function (req, res) {
 }
 
 exports.destroy = function (req, res) {
-	var username = req.params.username;
+	var user = req.params.user;
 
-	if((req.session.username) && ((req.session.username == username) || (req.session.username == "admin"))) {
-		User.remove({ username: username }, function(){});
-		Game.remove({ $or: [{player1 : username}, {player2 : username}]}, function (){});
+	if((user) && ((user.username == username) || (user.username == "admin"))) {
+		User.remove({ username: user.username }, function(){});
+		Game.remove({ $or: [{player1 : user.username}, {player2 : user.username}]}, function (){});
 
 		res.redirect('/users/logout');
 	} else {
