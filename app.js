@@ -52,6 +52,7 @@
 	});
 	app.use(require('stylus').middleware(__dirname + '/public'));
 	app.use(express.static(path.join(__dirname, 'public')));
+	app.use(app.router);
 
 	// development only
 	if ('development' == app.get('env')) {
@@ -157,5 +158,3 @@
 		console.log('broadcast to ' + data.game);
 		io.sockets.sockets[connectedPlayers[data.sender]].broadcast.to(data.game).emit('player_move', data);
 	});
-	
-	app.use(app.router);

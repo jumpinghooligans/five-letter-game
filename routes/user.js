@@ -60,13 +60,20 @@ exports.create = function (req, res) {
 }
 
 exports.destroy = function (req, res) {
-	var user = req.params.user;
+	var userToDelete = req.params.username;
+	var user = req.session.user;
 
-	if((user) && ((user.username == username) || (user.username == "admin"))) {
-		User.remove({ username: user.username }, function(){});
-		Game.remove({ $or: [{player1 : user.username}, {player2 : user.username}]}, function (){});
+	if((user) && (userToDelete) && ((user.username == userToDelete) || (user.username == "admin"))) {
+		Game.remove({ $or: [{player1 : userToDelete}, {player2 : userToDelete}]}, function (){});
 
-		res.redirect('/users/logout');
+		User.remove({ username: userToDelete }, function(){
+			if(user.username == userToDelete) {
+				res.redirect('/users/logout');
+			} else {
+				res.redirect('/users');
+			}
+		});
+
 	} else {
 		req.flash('errors', 'You cannot do that.');
 		res.redirect('users')
