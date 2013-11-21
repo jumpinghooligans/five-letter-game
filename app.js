@@ -67,7 +67,6 @@
 	//mongoose.connect(devDb);
 
 	var auth = function(req, res, next) {
-		console.log(req.session);
 		if(req.session.user) {
 			next();
 		} else {

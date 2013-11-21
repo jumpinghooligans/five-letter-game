@@ -47,7 +47,7 @@ exports.create = function (req, res) {
 	if(req.method == "POST") {
 		new User({ username : req.body.username, password: req.body.password, email: req.body.email }).save(function (err, user) {
 			if(!err) {
-				req.session.user.username = req.body.username;
+				req.session.user = user;
 				res.redirect("/");
 			} else {
 				console.log("create user error: " + err);
