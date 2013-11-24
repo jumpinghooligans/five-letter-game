@@ -3,9 +3,8 @@ extends layout
 block content
   h1= title
   hr
-  p Welcome to the #{title}
   
-  h3 The Game
+  h4 The Game
   p The Five Letter Game is a game I learned about in high school that could be played with two people silently during class.  A normal go would go as follows:
   ol
     li Each player would pick a five letter word as 'their' word.  They must keep this secret as the object of the game is for the other player to guess that word.
@@ -14,12 +13,11 @@ block content
     li The game continues until one player is able to correctly guess the other's secret word.
     
   
-  h3 Some Examples
+  h4 Some Examples
   p If Player A's secret word is 'admin'
   ul
     li If Player B uses 'stars' as their guess word, Player B would receive the following clue: stars (1) - [0] as there as one letter in common ('a') and no letters in the correct place.
     li If Player B uses 'plain' as their guess word, Player B would receive the following clue: plain (3) - [2] as the letters 'a', 'i' and 'n' are common between the two words and 'i' and 'n' are in the correct position.
     
   h3 Instances of this game
-  p The closest existing instance I found of this game online is found 
-  a(href='http://www.theperlreview.com/articles/jotto.html') as Jotto.
+  p The closest existing instance I found of this game online is found <a href='http://www.theperlreview.com/articles/jotto.html' target='_blank'>as Jotto</a>.
