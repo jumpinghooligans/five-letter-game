@@ -3,7 +3,7 @@
  */
 var User = require("../models/user.js");
 var Game = require("../models/game.js");
-var Helpers = require("../helpers");
+var Helpers = require("../helpers/helpers");
 var eventEmitter = new (require('events').EventEmitter)();
 
 exports.Events = eventEmitter;
@@ -27,8 +27,7 @@ exports.list = function (req, res) {
 		if((yourgames) && (othergames)) {
 			res.render('game/index', { 	
 				yourgames : yourgames,
-			 	othergames : othergames,
-			 	errors : req.flash('errors')
+			 	othergames : othergames
 			});
 		}
 	}
@@ -40,7 +39,7 @@ exports.create = function(req, res) {
 			if(!err) {
 				res.redirect('games/' + req.body.gamename.toLowerCase());
 			} else {
-				res.send("Game name already exists.");
+				res.render('game/create', { errors : [err] });
 			}
 		});
 	} else {
@@ -70,7 +69,7 @@ exports.game = function(req, res) {
 			res.render('game/game', { game: game, errors : req.flash('errors')});
 			return;
 		} else {
-			req.flash('errors', ['That game does not exists.']);
+			req.flash('errors', ['That game does not exist.']);
 			res.redirect('games');
 		}
 	});

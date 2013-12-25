@@ -143,6 +143,9 @@ h5 {
 .player .inner .moves {
   padding: 1em;
 }
+.player .inner .moves .move {
+  font-size: 14pt;
+}
 #footer {
   width: 1000px;
   background-color: #fff;

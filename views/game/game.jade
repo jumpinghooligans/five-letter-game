@@ -1,3 +1,5 @@
+include ../mixins/moves
+
 extends ../layout
 
 block content
@@ -6,7 +8,7 @@ block content
 	if errors
 		each error in errors
 			.error.alert #{error}
-	div(id='#{ game.player1 }', class='player')
+	div(id='#{ game.player1 }', class='player player1')
 		.inner
 			.title
 				.word #{ game.player1word }
@@ -19,10 +21,9 @@ block content
 				else
 						h1 - - - - -
 			.moves
-				each move in helpers.getMoves(game.words, game.player1)
-					p #{ move.word } (#{move.letters}) - [#{move.positions}]
+				mixin moves(game.words, game.player1)
 
-	div(id='#{ game.player2 }', class='player')
+	div(id='#{ game.player2 }', class='player player2')
 		.inner
 			.title
 				.word #{ game.player2word }
@@ -43,8 +44,7 @@ block content
 					else
 						h1 - - - - -
 				.moves
-					each move in helpers.getMoves(game.words, game.player2)
-						p #{ move.word } (#{move.letters}) - [#{move.positions}]
+					mixin moves(game.words, game.player2)
 
 	div(style='clear:both')
 	#options

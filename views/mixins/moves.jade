@@ -1,0 +1,3 @@
+mixin moves(words, player)
+	each move in helpers.getMoves(words, player)
+		.move #{ move.word } (#{move.letters}) - [#{move.positions}]

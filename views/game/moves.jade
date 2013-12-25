@@ -1,2 +1,3 @@
-each move in helpers.getMoves(game.words, player)
-	p #{ move.word } (#{move.letters}) - [#{move.positions}]
+include ../mixins/moves
+
+mixin moves(game.words, player)

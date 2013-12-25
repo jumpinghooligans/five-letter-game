@@ -20,7 +20,7 @@
 	var mongoose = require('mongoose');
 	var flash = require('connect-flash');
 
-	var helpers = require('./helpers');
+	var helpers = require('./helpers/helpers');
 
 	var app = express();
 
@@ -64,8 +64,8 @@
 	 * Need to figure out how to automate this
 	 */
 
-	mongoose.connect(herokuDb);
-	//mongoose.connect(devDb);
+	//mongoose.connect(herokuDb);
+	mongoose.connect(devDb);
 
 	var auth = function(req, res, next) {
 		if(req.session.user) {

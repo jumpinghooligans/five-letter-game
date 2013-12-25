@@ -2,6 +2,9 @@ extends ../layout
 
 block content
 	h1 Create Game
+	if errors
+		each error in errors
+			.error.alert #{error}
 	form(method='POST')
 		p
 			label(for='gamename') Game Name: 
